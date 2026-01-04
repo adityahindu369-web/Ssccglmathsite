@@ -223,6 +223,10 @@
             border-left: 4px solid #25D366;
             text-decoration: none;
             display: block;
+            text-align: left;
+            border: none;
+            width: 100%;
+            font-family: inherit;
         }
 
         .chapter-card:hover {
@@ -262,6 +266,90 @@
             border-bottom: 2px solid #25D366;
         }
 
+        /* Video Player Styles - FULL SCREEN */
+        .video-player-container {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 2000;
+        }
+
+        .video-player-container.active {
+            display: block;
+        }
+
+        .video-player {
+            width: 100%;
+            height: 100%;
+            background: #000;
+            border-radius: 0;
+            overflow: hidden;
+        }
+
+        .video-header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 10;
+        }
+
+        .video-title {
+            color: white;
+            font-size: 18px;
+            font-weight: 600;
+            max-width: 80%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .close-video {
+            background: #ff4444;
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 24px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .close-video:hover {
+            background: #ff6666;
+            transform: scale(1.1);
+        }
+
+        .video-content {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .video-content iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
         @media (max-width: 480px) {
             .modal-content {
                 padding: 35px 25px;
@@ -279,6 +367,11 @@
             .whatsapp-icon svg {
                 width: 45px;
                 height: 45px;
+            }
+            
+            .video-title {
+                font-size: 16px;
+                max-width: 70%;
             }
         }
     </style>
@@ -303,6 +396,19 @@
                 JOIN NOW
             </a>
             <div class="already-joined" onclick="closeModal()">I have already joined</div>
+        </div>
+    </div>
+
+    <!-- Video Player Container - FULL SCREEN -->
+    <div class="video-player-container" id="videoPlayerContainer">
+        <div class="video-player">
+            <div class="video-header">
+                <div class="video-title" id="videoTitle">Video Title</div>
+                <button class="close-video" onclick="closeVideo()">×</button>
+            </div>
+            <div class="video-content">
+                <iframe id="videoFrame" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
         </div>
     </div>
 
@@ -336,188 +442,215 @@
             setTimeout(loadSubjects, 100);
         });
 
+        // Video Player Functions
+        function openVideo(videoUrl, videoName) {
+            document.getElementById('videoTitle').textContent = videoName;
+            document.getElementById('videoFrame').src = videoUrl;
+            document.getElementById('videoPlayerContainer').classList.add('active');
+        }
+
+        function closeVideo() {
+            document.getElementById('videoPlayerContainer').classList.remove('active');
+            document.getElementById('videoFrame').src = '';
+        }
+
+        // Close video when pressing Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                if (document.getElementById('videoPlayerContainer').classList.contains('active')) {
+                    closeVideo();
+                }
+            }
+        });
+
+        // Close video when clicking outside (on the overlay)
+        document.getElementById('videoPlayerContainer').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeVideo();
+            }
+        });
+
         // New subjects data with the provided subjects
         const subjectsData = [
             {
                 name: "Digital Sum Class",
                 id: "digital-sum-class",
                 chapters: [
-                    { name: "digital sum class 01", link: "https://filetolink82ii-1-a84d33b9aa38.herokuapp.com/stream/993086?hash=635eca" },
-                    { name: "digital sum class 02", link: "https://filetolink82ii-1-a84d33b9aa38.herokuapp.com/stream/993088?hash=6e0b28" }
+                    { name: "digital sum class 01", link: "https://av-file-to-link-pro-3a5qd.sevalla.app/1029?hash=AgADSg" },
+                    { name: "digital sum class 02", link: "https://av-file-to-link-pro-3a5qd.sevalla.app/1033?hash=AgADTA" }
                 ]
             },
             {
                 name: "Calculation",
                 id: "calculation",
                 chapters: [
-                    { name: "calculation square root 01", link: "#" },
-                    { name: "calculation square root 02", link: "#" },
-                    { name: "calculation square root 03", link: "#" },
-                    { name: "calculation cube 04", link: "#" },
-                    { name: "calculation cube root 05", link: "#" },
-                    { name: "calculation multiplication 06", link: "#" }
+                    { name: "calculation square root 01", link: "https://av-file-to-link-pro-3a5qd.sevalla.app/1031?hash=AgADTg" },
+                    { name: "calculation square root 02", link: "https://av-file-to-link-pro-3a5qd.sevalla.app/1035?hash=AgADUA" },
+                    { name: "calculation square root 03", link: "https://av-file-to-link-pro-3a5qd.sevalla.app/1041?hash=AgADUg" },
+                    { name: "calculation cube 04", link: "https://av-file-to-link-pro-3a5qd.sevalla.app/1039?hash=AgADVQ" },
+                    { name: "calculation cube root 05", link: "https://av-file-to-link-pro-3a5qd.sevalla.app/1037?hash=AgADWA" },
+                    { name: "calculation multiplication 06", link: "https://av-file-to-link-pro-3a5qd.sevalla.app/1045?hash=AgADWQ" }
                 ]
             },
             {
                 name: "Persentage",
                 id: "percentage",
                 chapters: [
-                    { name: "persentage 01", link: "#" },
-                    { name: "persentage 02", link: "#" },
-                    { name: "persentage 03", link: "#" },
-                    { name: "persentage 04", link: "#" },
-                    { name: "persentage 05", link: "#" },
-                    { name: "persentage 06", link: "#" }
+                    { name: "persentage 01", link: "https://av-file-to-link-pro-3a5qd.sevalla.app/1043?hash=AgADMA" },
+                    { name: "persentage 02", link: "https://av-file-to-link-pro-3a5qd.sevalla.app/1049?hash=AgADMw" },
+                    { name: "persentage 03", link: "https://av-file-to-link-pro-3a5qd.sevalla.app/1047?hash=AgADNQ" },
+                    { name: "persentage 04", link: "https://av-file-to-link-pro-3a5qd.sevalla.app/1053?hash=AgADNw" },
+                    { name: "persentage 05", link: "https://av-file-to-link-pro-3a5qd.sevalla.app/1051?hash=AgADOA" },
+                    { name: "persentage 06", link: "https://av-file-to-link-pro-3a5qd.sevalla.app/1055?hash=AgADOQ" }
                 ]
             },
             {
                 name: "Profit & Loss",
                 id: "profit-loss",
                 chapters: [
-                    { name: "profit & loss 01", link: "#" },
-                    { name: "profit & loss 02", link: "#" },
-                    { name: "profit & loss 03", link: "#" },
-                    { name: "profit & loss 04", link: "#" },
-                    { name: "profit & loss 05", link: "#" },
-                    { name: "profit & loss 06", link: "#" },
-                    { name: "profit & loss 07", link: "#" }
+                    { name: "profit & loss 01", link: "https://av-file-to-link-pro-3a5qd.sevalla.app/1059?hash=AgADPA" },
+                    { name: "profit & loss 02", link: "https://av-file-to-link-pro-3a5qd.sevalla.app/1057?hash=AgADPg" },
+                    { name: "profit & loss 03", link: "https://av-file-to-link-pro-3a5qd.sevalla.app/1491?hash=AgADQA" },
+                    { name: "profit & loss 04", link: "https://av-file-to-link-pro-3a5qd.sevalla.app/1489?hash=AgADQQ" },
+                    { name: "profit & loss 05", link: "https://av-file-to-link-pro-3a5qd.sevalla.app/1061?hash=AgADQg" },
+                    { name: "profit & loss 06", link: "https://av-file-to-link-pro-3a5qd.sevalla.app/1497?hash=AgADQw" },
+                    { name: "profit & loss 07", link: "https://av-file-to-link-pro-3a5qd.sevalla.app/1495?hash=AgADRA" }
                 ]
             },
             {
                 name: "Discount",
                 id: "discount",
                 chapters: [
-                    { name: "discount 01", link: "#" },
-                    { name: "discount 02", link: "#" },
-                    { name: "discount 03", link: "#" },
-                    { name: "discount 04", link: "#" },
-                    { name: "discount 05", link: "#" },
-                    { name: "discount 06", link: "#" }
+                    { name: "discount 01", link: "https://av-file-to-link-pro-3a5qd.sevalla.app/3046?hash=AgADVw" },
+                    { name: "discount 02", link: "https://av-file-to-link-pro-3a5qd.sevalla.app/1509?hash=AgADxw" },
+                    { name: "discount 03", link: "https://av-file-to-link-pro-3a5qd.sevalla.app/1501?hash=AgADyA" },
+                    { name: "discount 04", link: "https://av-file-to-link-pro-3a5qd.sevalla.app/1505?hash=AgADuw" },
+                    { name: "discount 05", link: "https://av-file-to-link-pro-3a5qd.sevalla.app/1503?hash=AgADvA" },
+                    { name: "discount 06", link: "https://av-file-to-link-pro-3a5qd.sevalla.app/1507?hash=AgADvQ" }
                 ]
             },
             {
                 name: "Interest",
                 id: "interest",
                 chapters: [
-                    { name: "simple interest 01", link: "#" },
-                    { name: "simple interest 02", link: "#" },
-                    { name: "compound interest 01", link: "#" },
-                    { name: "compound interest 02", link: "#" },
-                    { name: "compound interest 03", link: "#" },
-                    { name: "SI & CI installment", link: "#" }
+                    { name: "simple interest 01", link: "https://av-file-to-link-pro-3a5qd.sevalla.app/1513?hash=AgADXg" },
+                    { name: "simple interest 02", link: "https://av-file-to-link-pro-3a5qd.sevalla.app/1517?hash=AgADYg" },
+                    { name: "compound interest 01", link: "https://av-file-to-link-pro-3a5qd.sevalla.app/1515?hash=AgADZQ" },
+                    { name: "compound interest 02", link: "https://av-file-to-link-pro-3a5qd.sevalla.app/1511?hash=AgADZw" },
+                    { name: "compound interest 03", link: "https://av-file-to-link-pro-3a5qd.sevalla.app/1519?hash=AgADaQ" },
+                    { name: "SI & CI installment", link: "https://av-file-to-link-pro-3a5qd.sevalla.app/1525?hash=AgADTA" }
                 ]
             },
             {
                 name: "Time & Work",
                 id: "time-work",
                 chapters: [
-                    { name: "time & work 01", link: "#" },
-                    { name: "time & work 02", link: "#" },
-                    { name: "time & work 03", link: "#" },
-                    { name: "time & work 04", link: "#" },
-                    { name: "time & work 05", link: "#" }
+                    { name: "time & work 01", link: "https://av-file-to-link-pro-3a5qd.sevalla.app/1521?hash=AgADaw" },
+                    { name: "time & work 02", link: "https://av-file-to-link-pro-3a5qd.sevalla.app/1523?hash=AgADbg" },
+                    { name: "time & work 03", link: "https://av-file-to-link-pro-3a5qd.sevalla.app/1527?hash=AgADcA" },
+                    { name: "time & work 04", link: "https://av-file-to-link-pro-3a5qd.sevalla.app/1529?hash=AgADcg" },
+                    { name: "time & work 05", link: "https://av-file-to-link-pro-3a5qd.sevalla.app/1533?hash=AgADcw" }
                 ]
             },
             {
                 name: "No System",
                 id: "no-system",
                 chapters: [
-                    { name: "no system 01", link: "#" },
-                    { name: "no system 02", link: "#" },
-                    { name: "no system 03", link: "#" },
-                    { name: "no system 04", link: "#" },
-                    { name: "no system 05", link: "#" },
-                    { name: "no system 06", link: "#" },
-                    { name: "no system 07", link: "#" },
-                    { name: "no system 08", link: "#" },
-                    { name: "no system 09", link: "#" }
+                    { name: "no system 01", link: "https://av-file-to-link-pro-3a5qd.sevalla.app/1535?hash=AgADyw" },
+                    { name: "no system 02", link: "https://av-file-to-link-pro-3a5qd.sevalla.app/1531?hash=AgADzQ" },
+                    { name: "no system 03", link: "https://av-file-to-link-pro-3a5qd.sevalla.app/1537?hash=AgADzw" },
+                    { name: "no system 04", link: "https://av-file-to-link-pro-3a5qd.sevalla.app/1543?hash=AgAD0A" },
+                    { name: "no system 05", link: "https://av-file-to-link-pro-3a5qd.sevalla.app/1539?hash=AgAD0g" },
+                    { name: "no system 06", link: "https://av-file-to-link-pro-3a5qd.sevalla.app/1545?hash=AgAD0w" },
+                    { name: "no system 07", link: "https://av-file-to-link-pro-3a5qd.sevalla.app/1541?hash=AgAD1Q" },
+                    { name: "no system 08", link: "https://av-file-to-link-pro-3a5qd.sevalla.app/1547?hash=AgAD1g" },
+                    { name: "no system 09", link: "https://av-file-to-link-pro-3a5qd.sevalla.app/1553?hash=AgAD2A" }
                 ]
             },
             {
                 name: "Trigonometry",
                 id: "trigonometry",
                 chapters: [
-                    { name: "trigonometry 01", link: "#" },
-                    { name: "trigonometry 02", link: "#" },
-                    { name: "trigonometry 03", link: "#" },
-                    { name: "trigonometry 04", link: "#" },
-                    { name: "trigonometry 05", link: "#" },
-                    { name: "trigonometry 06", link: "#" },
-                    { name: "trigonometry 07", link: "#" }
+                    { name: "trigonometry 01", link: "https://av-file-to-link-pro-3a5qd.sevalla.app/1551?hash=AgADdQ" },
+                    { name: "trigonometry 02", link: "https://av-file-to-link-pro-3a5qd.sevalla.app/1549?hash=AgADdw" },
+                    { name: "trigonometry 03", link: "https://av-file-to-link-pro-3a5qd.sevalla.app/1555?hash=AgADeQ" },
+                    { name: "trigonometry 04", link: "https://av-file-to-link-pro-3a5qd.sevalla.app/1557?hash=AgADew" },
+                    { name: "trigonometry 05", link: "https://av-file-to-link-pro-3a5qd.sevalla.app/1559?hash=AgADfA" },
+                    { name: "trigonometry 06", link: "https://av-file-to-link-pro-3a5qd.sevalla.app/1561?hash=AgADfQ" },
                 ]
             },
             {
                 name: "Height & Distance",
                 id: "height-distance",
                 chapters: [
-                    { name: "height and distance 01", link: "#" }
+                    { name: "height and distance 01", link: "https://av-file-to-link-pro-3a5qd.sevalla.app/1567?hash=AgADgQAgADgQ" }
                 ]
             },
             {
                 name: "Time, Speed & Distance",
                 id: "time-speed-distance",
                 chapters: [
-                    { name: "time, speed & distance 01", link: "#" },
-                    { name: "time, speed & distance 02", link: "#" },
-                    { name: "time, speed & distance 03", link: "#" },
-                    { name: "time, speed & distance 04", link: "#" },
-                    { name: "time, speed & distance 05", link: "#" }
+                    { name: "time, speed & distance 01", link: "https://av-file-to-link-pro-3a5qd.sevalla.app/1563?hash=AgADRQ" },
+                    { name: "time, speed & distance 02", link: "https://av-file-to-link-pro-3a5qd.sevalla.app/1565?hash=AgADjg" },
+                    { name: "time, speed & distance 03", link: "https://av-file-to-link-pro-3a5qd.sevalla.app/1569?hash=AgADNA" },
+                    { name: "time, speed & distance 04", link: "https://av-file-to-link-pro-3a5qd.sevalla.app/1575?hash=AgADFA" },
+                    { name: "time, speed & distance 05", link: "https://av-file-to-link-pro-3a5qd.sevalla.app/1571?hash=AgADZw" }
                 ]
             },
             {
                 name: "Ratio",
                 id: "ratio",
                 chapters: [
-                    { name: "ratio 01", link: "#" },
-                    { name: "ratio 02", link: "#" },
-                    { name: "ratio 03", link: "#" },
-                    { name: "ratio 04", link: "#" },
-                    { name: "ratio 05", link: "#" }
+                    { name: "ratio 01", link: "https://av-file-to-link-pro-3a5qd.sevalla.app/1573?hash=AgADCw" },
+                    { name: "ratio 02", link: "https://av-file-to-link-pro-3a5qd.sevalla.app/1577?hash=AgADDg" },
+                    { name: "ratio 03", link: "https://av-file-to-link-pro-3a5qd.sevalla.app/1583?hash=AgADjw" },
+                    { name: "ratio 04", link: "https://av-file-to-link-pro-3a5qd.sevalla.app/1579?hash=AgADkQ" },
+                    { name: "ratio 05", link: "https://av-file-to-link-pro-3a5qd.sevalla.app/1585?hash=AgADkg" }
                 ]
             },
             {
                 name: "Partnership",
                 id: "partnership",
                 chapters: [
-                    { name: "partnership 01", link: "#" }
+                    { name: "partnership ", link: "https://av-file-to-link-pro-3a5qd.sevalla.app/1581?hash=AgADlA" }
                 ]
             },
             {
                 name: "HCF & LCM",
                 id: "hcf-lcm",
                 chapters: [
-                    { name: "hcf & lcm 01", link: "#" }
+                    { name: "hcf & lcm ", link: "https://av-file-to-link-pro-3a5qd.sevalla.app/1587?hash=AgADmA" }
                 ]
             },
             {
                 name: "Simplification",
                 id: "simplification",
                 chapters: [
-                    { name: "simplification 01", link: "#" },
-                    { name: "simplification 02", link: "#" }
+                    { name: "simplification 01", link: "https://av-file-to-link-pro-3a5qd.sevalla.app/1591?hash=AgADag" },
+                    { name: "simplification 02", link: "https://av-file-to-link-pro-3a5qd.sevalla.app/1593?hash=AgADbA" }
                 ]
             },
             {
                 name: "Surd & Indices",
                 id: "surd-indices",
                 chapters: [
-                    { name: "surd & indices 01", link: "#" },
-                    { name: "surd & indices 02", link: "#" },
-                    { name: "surd & indices 03", link: "#" }
+                    { name: "surd & indices 01", link: "https://av-file-to-link-pro-3a5qd.sevalla.app/1589?hash=AgADbg" },
+                    { name: "surd & indices 02", link: "https://av-file-to-link-pro-3a5qd.sevalla.app/1595?hash=AgADcQ" },
+                    { name: "surd & indices 03", link: "https://av-file-to-link-pro-3a5qd.sevalla.app/1601?hash=AgADcg" }
                 ]
             },
             {
                 name: "Race & Circular Motion",
                 id: "race-circular-motion",
                 chapters: [
-                    { name: "race & circular motion 01", link: "#" }
+                    { name: "race & circular motion ", link: "https://av-file-to-link-pro-3a5qd.sevalla.app/1597?hash=AgADkw" }
                 ]
             },
             {
                 name: "Boat & Stream",
                 id: "boat-stream",
                 chapters: [
-                    { name: "boat & stream 01", link: "#" }
+                    { name: "boat & stream ", link: "https://av-file-to-link-pro-3a5qd.sevalla.app/1599?hash=AgADlQ" }
                 ]
             }
         ];
@@ -559,10 +692,15 @@
                 
                 // Add chapters
                 subject.chapters.forEach(chapter => {
-                    const chapterCard = document.createElement('a');
+                    const chapterCard = document.createElement('button');
                     chapterCard.className = 'chapter-card';
-                    chapterCard.href = chapter.link;
-                    chapterCard.target = '_blank';
+                    chapterCard.onclick = () => {
+                        if (chapter.link === "#" || !chapter.link) {
+                            alert("Video link available soon!");
+                        } else {
+                            openVideo(chapter.link, chapter.name);
+                        }
+                    };
                     chapterCard.textContent = chapter.name;
                     chapterList.appendChild(chapterCard);
                 });
@@ -603,4 +741,4 @@
         loadSubjects();
     </script>
 </body>
-</html>
+    </html>
