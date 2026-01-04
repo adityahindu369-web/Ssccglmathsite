@@ -2,296 +2,605 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Premium Mathematics Batch</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CHAMPIONS 26.0 Maths Special LIVE - Subjects</title>
     <style>
-        body {
-            margin: 0; padding: 0;
-            background-color: #f1f5f9;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            color: #1e293b;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        .header {
-            background: #ffffff;
-            padding: 45px 20px 15px 20px;
-            position: sticky; top: 0; z-index: 100;
-            border-bottom: 1px solid #e2e8f0;
-            display: flex; align-items: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
-        }
-        .back-icon { font-size: 32px; color: #2563eb; margin-right: 12px; cursor: pointer; }
-        .title { font-size: 20px; font-weight: 800; color: #0f172a; }
-        .container { padding: 12px 16px; }
-        
-        .item-card {
-            background: #ffffff;
-            border-radius: 16px;
-            padding: 14px;
-            margin-bottom: 10px;
-            display: flex; align-items: center;
-            text-decoration: none; color: inherit;
-            border: 1px solid #eef2f6;
-            transition: 0.2s;
-        }
-        .item-card:active { transform: scale(0.96); background: #f8fafc; }
-        
-        .number-tag {
-            width: 34px; height: 34px; border-radius: 10px;
-            display: flex; align-items: center; justify-content: center;
-            font-weight: 800; font-size: 13px; margin-right: 12px;
-            flex-shrink: 0; color: #ffffff;
-            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
-        }
-        .topic-name { font-size: 15px; font-weight: 600; color: #334155; }
 
-        /* Color Patterns */
-        .c-purple { background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%); }
-        .c-green { background: linear-gradient(135deg, #10b981 0%, #059669 100%); }
-        .c-orange { background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); }
-        .c-red { background: linear-gradient(135deg, #ef4444 0%, #b91c1c 100%); }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            background: #000;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 20px;
+        }
+
+        .modal-overlay.hidden {
+            display: none;
+        }
+
+        .modal-content {
+            background: linear-gradient(to bottom, #1a2a1a 0%, #0d1a0d 100%);
+            border-radius: 25px;
+            padding: 40px 30px;
+            max-width: 500px;
+            width: 100%;
+            border: 1px solid #2d4a2d;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+        }
+
+        .whatsapp-icon {
+            width: 90px;
+            height: 90px;
+            background: #25D366;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 30px;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+        }
+
+        .whatsapp-icon svg {
+            width: 50px;
+            height: 50px;
+            fill: white;
+        }
+
+        .modal-title {
+            color: white;
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
+
+        .modal-subtitle {
+            color: #8a8a8a;
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+
+        .modal-updates {
+            color: #25D366;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 35px;
+            letter-spacing: 0.5px;
+        }
+
+        .join-btn {
+            background: #25D366;
+            color: #000;
+            border: none;
+            padding: 18px 40px;
+            border-radius: 15px;
+            font-size: 20px;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            text-decoration: none;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+        }
+
+        .join-btn:active {
+            transform: scale(0.98);
+        }
+
+        .join-btn:hover {
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+        }
+
+        .join-btn svg {
+            width: 28px;
+            height: 28px;
+            fill: #000;
+        }
+
+        .already-joined {
+            color: #5a5a5a;
+            font-size: 15px;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .already-joined:hover {
+            color: #7a7a7a;
+        }
+
+        .header {
+            background: transparent;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .back-btn {
+            display: none;
+        }
+
+        .header-title {
+            color: WHITE;
+            font-size: 22px;
+            font-weight: 500;
+        }
+
+        .content {
+            padding: 20px;
+            max-width: 700px;
+            margin: 0 auto;
+            background: #000;
+        }
+
+        .subject-card {
+            background: #1E1E26;
+            border-radius: 15px;
+            padding: 20px 25px;
+            margin-bottom: 15px;
+            font-size: 17px;
+            color: #FFFFFF;
+            font-weight: 400;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(98, 110, 239, 0.2);
+            border-bottom: 2px solid #626EEF;
+            position: relative;
+            overflow: hidden;
+            display: block;
+            text-align: center;
+        }
+
+        .subject-card::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, #626EEF 0%, #D4AF37 100%);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .subject-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .subject-card:active {
+            transform: scale(0.98);
+        }
+
+        .subject-card:hover {
+            box-shadow: 0 6px 20px rgba(98, 110, 239, 0.4);
+            transform: translateY(-3px);
+            border-bottom-color: #D4AF37;
+        }
+
+        .chapter-list {
+            display: none;
+        }
+
+        .chapter-list.active {
+            display: block;
+        }
+
+        .chapter-card {
+            background: #2a2a35;
+            border-radius: 12px;
+            padding: 15px 20px;
+            margin-bottom: 10px;
+            font-size: 16px;
+            color: #FFFFFF;
+            font-weight: 400;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            border-left: 4px solid #25D366;
+            text-decoration: none;
+            display: block;
+        }
+
+        .chapter-card:hover {
+            background: #353542;
+            transform: translateX(5px);
+        }
+
+        .chapter-card:active {
+            transform: scale(0.98);
+        }
+
+        .back-to-subjects {
+            background: #626EEF;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 20px;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .back-to-subjects:hover {
+            background: #4a58e8;
+        }
+
+        .subject-title {
+            color: #25D366;
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            text-align: center;
+            padding: 10px;
+            border-bottom: 2px solid #25D366;
+        }
+
+        @media (max-width: 480px) {
+            .modal-content {
+                padding: 35px 25px;
+            }
+
+            .modal-title {
+                font-size: 28px;
+            }
+
+            .whatsapp-icon {
+                width: 80px;
+                height: 80px;
+            }
+
+            .whatsapp-icon svg {
+                width: 45px;
+                height: 45px;
+            }
+        }
     </style>
 </head>
 <body>
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-content">
+            <div class="whatsapp-icon">
+                <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M16 0C7.164 0 0 7.163 0 16c0 2.816.736 5.464 2.014 7.762L.064 30.935l7.516-1.97A15.937 15.937 0 0016 32c8.837 0 16-7.163 16-16S24.837 0 16 0zm0 29.333c-2.4 0-4.658-.636-6.616-1.746l-.473-.28-4.91 1.287 1.31-4.785-.308-.492A13.283 13.283 0 012.667 16c0-7.364 5.97-13.333 13.333-13.333S29.333 8.636 29.333 16 23.364 29.333 16 29.333z"/>
+                    <path d="M12.136 9.52c-.285-.632-.586-.645-.858-.656-.222-.009-.476-.008-.73-.008-.255 0-.668.096-.1018.475-.366.38-1.397 1.365-1.397 3.328 0 1.964 1.429 3.862 1.628 4.127.198.265 2.8 4.272 6.782 5.992.947.409 1.688.654 2.265.837.951.302 1.816.26 2.5.157.762-.114 2.347-.96 2.678-1.887.331-.927.331-1.722.232-1.887-.1-.165-.365-.265-.762-.464-.397-.199-2.348-1.159-2.713-1.291-.365-.133-.631-.199-.897.199-.265.397-1.03 1.291-1.262 1.557-.232.265-.464.298-.861.1-.397-.2-1.678-.619-3.196-1.973-1.182-1.053-1.98-2.354-2.212-2.751-.232-.397-.025-.612.175-.81.179-.178.397-.464.596-.696.198-.232.265-.398.397-.663.133-.265.066-.497-.033-.696-.1-.199-.897-2.162-1.229-2.96z"/>
+                </svg>
+            </div>
+            <div class="modal-title">OFFICIAL CHANNEL</div>
+            <div class="modal-subtitle">Join kar lo more free apps ke liye.</div>
+            <div class="modal-updates">ALL NEW UPDATES</div>
+            <a href="https://whatsapp.com/channel/0029Vb7dU6OFi8xZakWrnz42" class="join-btn" target="_blank">
+                <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M16 0C7.164 0 0 7.163 0 16c0 2.816.736 5.464 2.014 7.762L.064 30.935l7.516-1.97A15.937 15.937 0 0016 32c8.837 0 16-7.163 16-16S24.837 0 16 0zm0 29.333c-2.4 0-4.658-.636-6.616-1.746l-.473-.28-4.91 1.287 1.31-4.785-.308-.492A13.283 13.283 0 012.667 16c0-7.364 5.97-13.333 13.333-13.333S29.333 8.636 29.333 16 23.364 29.333 16 29.333z"/>
+                    <path d="M12.136 9.52c-.285-.632-.586-.645-.858-.656-.222-.009-.476-.008-.73-.008-.255 0-.668.096-.1018.475-.366.38-1.397 1.365-1.397 3.328 0 1.964 1.429 3.862 1.628 4.127.198.265 2.8 4.272 6.782 5.992.947.409 1.688.654 2.265.837.951.302 1.816.26 2.5.157.762-.114 2.347-.96 2.678-1.887.331-.927.331-1.722.232-1.887-.1-.165-.365-.265-.762-.464-.397-.199-2.348-1.159-2.713-1.291-.365-.133-.631-.199-.897.199-.265.397-1.03 1.291-1.262 1.557-.232.265-.464.298-.861.1-.397-.2-1.678-.619-3.196-1.973-1.182-1.053-1.98-2.354-2.212-2.751-.232-.397-.025-.612.175-.81.179-.178.397-.464.596-.696.198-.232.265-.398.397-.663.133-.265.066-.497-.033-.696-.1-.199-.897-2.162-1.229-2.96z"/>
+                </svg>
+                JOIN NOW
+            </a>
+            <div class="already-joined" onclick="closeModal()">I have already joined</div>
+        </div>
+    </div>
 
-<div class="header">
-    <span class="back-icon" onclick="window.history.back()">&#8249;</span>
-    <div class="title">MATHS FULL COURSE</div>
-</div>
+    <div class="header">
+        <button class="back-btn"></button>
+        <div class="header-title"></div>
+    </div>
 
-<div class="container">
-    <a href="https://a-tushar-82q-fef07c6bf20a.herokuapp.com/stream/969811?hash=3aa3b3" class="item-card">
-        <div class="number-tag">01</div><div class="topic-name">Digital Sum Class 01</div>
-    </a>
-    <a href="https://a-tushar-82q-fef07c6bf20a.herokuapp.com/stream/969823?hash=1d69df" class="item-card">
-        <div class="number-tag">02</div><div class="topic-name">Digital Sum Class 02</div>
-    </a>
+    <div class="content" id="mainContent">
+        <!-- Subjects List (Default View) -->
+        <div id="subjectsList">
+            <!-- All subjects will be dynamically added here -->
+        </div>
 
-    <a href="https://a-tushar-82q-fef07c6bf20a.herokuapp.com/stream/969825?hash=63e9d1" class="item-card">
-        <div class="number-tag c-purple">03</div><div class="topic-name">Calculation Square Root 01</div>
-    </a>
-    <a href="https://a-tushar-82q-fef07c6bf20a.herokuapp.com/stream/969827?hash=627dc3" class="item-card">
-        <div class="number-tag c-purple">04</div><div class="topic-name">Calculation Square Root 02</div>
-    </a>
-    <a href="https://a-tushar-82q-fef07c6bf20a.herokuapp.com/stream/969829?hash=f7e986" class="item-card">
-        <div class="number-tag c-purple">05</div><div class="topic-name">Calculation Square Root 03</div>
-    </a>
-    <a href="https://a-tushar-82q-fef07c6bf20a.herokuapp.com/stream/969831?hash=89d7bf" class="item-card">
-        <div class="number-tag c-purple">06</div><div class="topic-name">Calculation Cube 04</div>
-    </a>
-    <a href="https://a-tushar-82q-fef07c6bf20a.herokuapp.com/stream/969833?hash=692253" class="item-card">
-        <div class="number-tag c-purple">07</div><div class="topic-name">Calculation Cube Root 05</div>
-    </a>
-    <a href="https://a-tushar-82q-fef07c6bf20a.herokuapp.com/stream/969835?hash=aba250" class="item-card">
-        <div class="number-tag c-purple">08</div><div class="topic-name">Calculation Multiplication 06</div>
-    </a>
+        <!-- Chapters Lists (Hidden by default) -->
+        <div id="chaptersContainer">
+            <!-- All chapter lists will be dynamically added here -->
+        </div>
+    </div>
 
-    <a href="https://a-tushar-82q-fef07c6bf20a.herokuapp.com/stream/969837?hash=258439" class="item-card">
-        <div class="number-tag c-green">09</div><div class="topic-name">Percentage 01</div>
-    </a>
-    <a href="https://a-tushar-82q-fef07c6bf20a.herokuapp.com/stream/969839?hash=1d2f44" class="item-card">
-        <div class="number-tag c-green">10</div><div class="topic-name">Percentage 02</div>
-    </a>
-    <a href="https://a-tushar-82q-fef07c6bf20a.herokuapp.com/stream/969841?hash=cc30aa" class="item-card">
-        <div class="number-tag c-green">11</div><div class="topic-name">Percentage 03</div>
-    </a>
-    <a href="https://a-tushar-82q-fef07c6bf20a.herokuapp.com/stream/969843?hash=3e4753" class="item-card">
-        <div class="number-tag c-green">12</div><div class="topic-name">Percentage 04</div>
-    </a>
-    <a href="https://a-tushar-82q-fef07c6bf20a.herokuapp.com/stream/969845?hash=7de027" class="item-card">
-        <div class="number-tag c-green">13</div><div class="topic-name">Percentage 05</div>
-    </a>
-    <a href="https://a-tushar-82q-fef07c6bf20a.herokuapp.com/stream/969849?hash=a109ff" class="item-card">
-        <div class="number-tag c-green">14</div><div class="topic-name">Percentage 06</div>
-    </a>
+    <script>
+        function closeModal() {
+            document.getElementById('modalOverlay').classList.add('hidden');
+        }
 
-    <a href="https://a-tushar-82q-fef07c6bf20a.herokuapp.com/stream/969855?hash=5f72e1" class="item-card">
-        <div class="number-tag c-orange">15</div><div class="topic-name">Profit & Loss 01</div>
-    </a>
-    <a href="https://a-tushar-82q-fef07c6bf20a.herokuapp.com/stream/969857?hash=bf1ed4" class="item-card">
-        <div class="number-tag c-orange">16</div><div class="topic-name">Profit & Loss 02</div>
-    </a>
-    <a href="https://a-tushar-82q-fef07c6bf20a.herokuapp.com/stream/969863?hash=82014b" class="item-card">
-        <div class="number-tag c-orange">17</div><div class="topic-name">Profit & Loss 03</div>
-    </a>
-    <a href="https://a-tushar-82q-fef07c6bf20a.herokuapp.com/stream/969865?hash=65f9b6" class="item-card">
-        <div class="number-tag c-orange">18</div><div class="topic-name">Profit & Loss 04</div>
-    </a>
-    <a href="https://a-tushar-82q-fef07c6bf20a.herokuapp.com/stream/969867?hash=6d51c5" class="item-card">
-        <div class="number-tag c-orange">19</div><div class="topic-name">Profit & Loss 05</div>
-    </a>
-    <a href="https://a-tushar-82q-fef07c6bf20a.herokuapp.com/stream/969869?hash=c3c871" class="item-card">
-        <div class="number-tag c-orange">20</div><div class="topic-name">Profit & Loss 06</div>
-    </a>
-    <a href="https://a-tushar-82q-fef07c6bf20a.herokuapp.com/stream/969871?hash=b295c9" class="item-card">
-        <div class="number-tag c-orange">21</div><div class="topic-name">Profit & Loss 07</div>
-    </a>
+        // Show modal on page load
+        window.addEventListener('load', function() {
+            document.getElementById('modalOverlay').classList.remove('hidden');
+            
+            // Load subjects after modal
+            setTimeout(loadSubjects, 100);
+        });
 
-    <a href="https://a-tushar-82q-fef07c6bf20a.herokuapp.com/stream/969873?hash=db4b7f" class="item-card">
-        <div class="number-tag c-red">22</div><div class="topic-name">Discount 01</div>
-    </a>
-    <a href="https://a-tushar-82q-fef07c6bf20a.herokuapp.com/stream/969875?hash=cfe3c5" class="item-card">
-        <div class="number-tag c-red">23</div><div class="topic-name">Discount 02</div>
-    </a>
-    <a href="https://a-tushar-82q-fef07c6bf20a.herokuapp.com/stream/969877?hash=b93f1b" class="item-card">
-        <div class="number-tag c-red">24</div><div class="topic-name">Discount 03</div>
-    </a>
-    <a href="https://a-tushar-82q-fef07c6bf20a.herokuapp.com/stream/969879?hash=55c666" class="item-card">
-        <div class="number-tag c-red">25</div><div class="topic-name">Discount 04</div>
-    </a>
-    <a href="https://a-tushar-82q-fef07c6bf20a.herokuapp.com/stream/969881?hash=b6a1ab" class="item-card">
-        <div class="number-tag c-red">26</div><div class="topic-name">Discount 05</div>
-    </a>
-    <a href="https://a-tushar-82q-fef07c6bf20a.herokuapp.com/stream/969883?hash=ea3679" class="item-card">
-        <div class="number-tag c-red">27</div><div class="topic-name">Discount 06</div>
-    </a>
+        // New subjects data with the provided subjects
+        const subjectsData = [
+            {
+                name: "Digital Sum Class",
+                id: "digital-sum-class",
+                chapters: [
+                    { name: "digital sum class 01", link: "https://filetolink82ii-1-a84d33b9aa38.herokuapp.com/stream/993086?hash=635eca" },
+                    { name: "digital sum class 02", link: "https://filetolink82ii-1-a84d33b9aa38.herokuapp.com/stream/993088?hash=6e0b28" }
+                ]
+            },
+            {
+                name: "Calculation",
+                id: "calculation",
+                chapters: [
+                    { name: "calculation square root 01", link: "#" },
+                    { name: "calculation square root 02", link: "#" },
+                    { name: "calculation square root 03", link: "#" },
+                    { name: "calculation cube 04", link: "#" },
+                    { name: "calculation cube root 05", link: "#" },
+                    { name: "calculation multiplication 06", link: "#" }
+                ]
+            },
+            {
+                name: "Persentage",
+                id: "percentage",
+                chapters: [
+                    { name: "persentage 01", link: "#" },
+                    { name: "persentage 02", link: "#" },
+                    { name: "persentage 03", link: "#" },
+                    { name: "persentage 04", link: "#" },
+                    { name: "persentage 05", link: "#" },
+                    { name: "persentage 06", link: "#" }
+                ]
+            },
+            {
+                name: "Profit & Loss",
+                id: "profit-loss",
+                chapters: [
+                    { name: "profit & loss 01", link: "#" },
+                    { name: "profit & loss 02", link: "#" },
+                    { name: "profit & loss 03", link: "#" },
+                    { name: "profit & loss 04", link: "#" },
+                    { name: "profit & loss 05", link: "#" },
+                    { name: "profit & loss 06", link: "#" },
+                    { name: "profit & loss 07", link: "#" }
+                ]
+            },
+            {
+                name: "Discount",
+                id: "discount",
+                chapters: [
+                    { name: "discount 01", link: "#" },
+                    { name: "discount 02", link: "#" },
+                    { name: "discount 03", link: "#" },
+                    { name: "discount 04", link: "#" },
+                    { name: "discount 05", link: "#" },
+                    { name: "discount 06", link: "#" }
+                ]
+            },
+            {
+                name: "Interest",
+                id: "interest",
+                chapters: [
+                    { name: "simple interest 01", link: "#" },
+                    { name: "simple interest 02", link: "#" },
+                    { name: "compound interest 01", link: "#" },
+                    { name: "compound interest 02", link: "#" },
+                    { name: "compound interest 03", link: "#" },
+                    { name: "SI & CI installment", link: "#" }
+                ]
+            },
+            {
+                name: "Time & Work",
+                id: "time-work",
+                chapters: [
+                    { name: "time & work 01", link: "#" },
+                    { name: "time & work 02", link: "#" },
+                    { name: "time & work 03", link: "#" },
+                    { name: "time & work 04", link: "#" },
+                    { name: "time & work 05", link: "#" }
+                ]
+            },
+            {
+                name: "No System",
+                id: "no-system",
+                chapters: [
+                    { name: "no system 01", link: "#" },
+                    { name: "no system 02", link: "#" },
+                    { name: "no system 03", link: "#" },
+                    { name: "no system 04", link: "#" },
+                    { name: "no system 05", link: "#" },
+                    { name: "no system 06", link: "#" },
+                    { name: "no system 07", link: "#" },
+                    { name: "no system 08", link: "#" },
+                    { name: "no system 09", link: "#" }
+                ]
+            },
+            {
+                name: "Trigonometry",
+                id: "trigonometry",
+                chapters: [
+                    { name: "trigonometry 01", link: "#" },
+                    { name: "trigonometry 02", link: "#" },
+                    { name: "trigonometry 03", link: "#" },
+                    { name: "trigonometry 04", link: "#" },
+                    { name: "trigonometry 05", link: "#" },
+                    { name: "trigonometry 06", link: "#" },
+                    { name: "trigonometry 07", link: "#" }
+                ]
+            },
+            {
+                name: "Height & Distance",
+                id: "height-distance",
+                chapters: [
+                    { name: "height and distance 01", link: "#" }
+                ]
+            },
+            {
+                name: "Time, Speed & Distance",
+                id: "time-speed-distance",
+                chapters: [
+                    { name: "time, speed & distance 01", link: "#" },
+                    { name: "time, speed & distance 02", link: "#" },
+                    { name: "time, speed & distance 03", link: "#" },
+                    { name: "time, speed & distance 04", link: "#" },
+                    { name: "time, speed & distance 05", link: "#" }
+                ]
+            },
+            {
+                name: "Ratio",
+                id: "ratio",
+                chapters: [
+                    { name: "ratio 01", link: "#" },
+                    { name: "ratio 02", link: "#" },
+                    { name: "ratio 03", link: "#" },
+                    { name: "ratio 04", link: "#" },
+                    { name: "ratio 05", link: "#" }
+                ]
+            },
+            {
+                name: "Partnership",
+                id: "partnership",
+                chapters: [
+                    { name: "partnership 01", link: "#" }
+                ]
+            },
+            {
+                name: "HCF & LCM",
+                id: "hcf-lcm",
+                chapters: [
+                    { name: "hcf & lcm 01", link: "#" }
+                ]
+            },
+            {
+                name: "Simplification",
+                id: "simplification",
+                chapters: [
+                    { name: "simplification 01", link: "#" },
+                    { name: "simplification 02", link: "#" }
+                ]
+            },
+            {
+                name: "Surd & Indices",
+                id: "surd-indices",
+                chapters: [
+                    { name: "surd & indices 01", link: "#" },
+                    { name: "surd & indices 02", link: "#" },
+                    { name: "surd & indices 03", link: "#" }
+                ]
+            },
+            {
+                name: "Race & Circular Motion",
+                id: "race-circular-motion",
+                chapters: [
+                    { name: "race & circular motion 01", link: "#" }
+                ]
+            },
+            {
+                name: "Boat & Stream",
+                id: "boat-stream",
+                chapters: [
+                    { name: "boat & stream 01", link: "#" }
+                ]
+            }
+        ];
 
-    <a href="https://a-tushar-82q-fef07c6bf20a.herokuapp.com/stream/969885?hash=6246d8" class="item-card">
-        <div class="number-tag">28</div><div class="topic-name">Simple Interest 01</div>
-    </a>
-    <a href="https://a-tushar-82q-fef07c6bf20a.herokuapp.com/stream/969889?hash=1ce032" class="item-card">
-        <div class="number-tag">29</div><div class="topic-name">Simple Interest 02</div>
-    </a>
-    <a href="https://a-tushar-82q-fef07c6bf20a.herokuapp.com/stream/969897?hash=cbac1d" class="item-card">
-        <div class="number-tag">30</div><div class="topic-name">Compound Interest 01</div>
-    </a>
-    <a href="https://a-tushar-82q-fef07c6bf20a.herokuapp.com/stream/969901?hash=b85e75" class="item-card">
-        <div class="number-tag">31</div><div class="topic-name">Compound Interest 02</div>
-    </a>
-    <a href="https://a-tushar-82q-fef07c6bf20a.herokuapp.com/stream/969903?hash=5caf8e" class="item-card">
-        <div class="number-tag">32</div><div class="topic-name">Compound Interest 03</div>
-    </a>
-    <a href="https://a-tushar-82q-fef07c6bf20a.herokuapp.com/stream/969905?hash=8a7b0c" class="item-card">
-        <div class="number-tag">33</div><div class="topic-name">SI & CI Installment</div>
-    </a>
+        function loadSubjects() {
+            const subjectsList = document.getElementById('subjectsList');
+            const chaptersContainer = document.getElementById('chaptersContainer');
+            
+            // Clear existing content
+            subjectsList.innerHTML = '';
+            chaptersContainer.innerHTML = '';
+            
+            // Add subjects
+            subjectsData.forEach((subject, index) => {
+                // Create subject card
+                const subjectCard = document.createElement('div');
+                subjectCard.className = 'subject-card';
+                subjectCard.textContent = subject.name;
+                subjectCard.onclick = () => showChapters(subject.id);
+                subjectsList.appendChild(subjectCard);
+                
+                // Create chapter list for this subject
+                const chapterList = document.createElement('div');
+                chapterList.className = 'chapter-list';
+                chapterList.id = `chapters-${subject.id}`;
+                
+                // Add back button
+                const backButton = document.createElement('button');
+                backButton.className = 'back-to-subjects';
+                backButton.textContent = '← Back to Subjects';
+                backButton.onclick = showSubjects;
+                chapterList.appendChild(backButton);
+                
+                // Add subject title
+                const subjectTitle = document.createElement('div');
+                subjectTitle.className = 'subject-title';
+                subjectTitle.textContent = subject.name;
+                chapterList.appendChild(subjectTitle);
+                
+                // Add chapters
+                subject.chapters.forEach(chapter => {
+                    const chapterCard = document.createElement('a');
+                    chapterCard.className = 'chapter-card';
+                    chapterCard.href = chapter.link;
+                    chapterCard.target = '_blank';
+                    chapterCard.textContent = chapter.name;
+                    chapterList.appendChild(chapterCard);
+                });
+                
+                chaptersContainer.appendChild(chapterList);
+            });
+        }
 
-    <a href="https://a-tushar-82q-fef07c6bf20a.herokuapp.com/stream/969907?hash=6111a9" class="item-card">
-        <div class="number-tag c-purple">34</div><div class="topic-name">Time & Work 01</div>
-    </a>
-    <a href="https://a-tushar-82q-fef07c6bf20a.herokuapp.com/stream/969909?hash=c418bc" class="item-card">
-        <div class="number-tag c-purple">35</div><div class="topic-name">Time & Work 02</div>
-    </a>
-    <a href="https://a-tushar-82q-fef07c6bf20a.herokuapp.com/stream/969913?hash=944d77" class="item-card">
-        <div class="number-tag c-purple">36</div><div class="topic-name">Time & Work 03</div>
-    </a>
-    <a href="https://a-tushar-82q-fef07c6bf20a.herokuapp.com/stream/969915?hash=5c2539" class="item-card">
-        <div class="number-tag c-purple">37</div><div class="topic-name">Time & Work 04</div>
-    </a>
-    <a href="https://a-tushar-82q-fef07c6bf20a.herokuapp.com/stream/969917?hash=9d98e9" class="item-card">
-        <div class="number-tag c-purple">38</div><div class="topic-name">Time & Work 05</div>
-    </a>
+        function showChapters(subjectId) {
+            // Hide all subjects
+            document.getElementById('subjectsList').style.display = 'none';
+            
+            // Hide all chapter lists
+            const allChapterLists = document.querySelectorAll('.chapter-list');
+            allChapterLists.forEach(list => {
+                list.classList.remove('active');
+            });
+            
+            // Show the selected chapter list
+            const selectedChapterList = document.getElementById(`chapters-${subjectId}`);
+            if (selectedChapterList) {
+                selectedChapterList.classList.add('active');
+            }
+        }
 
-    <a href="https://a-tushar-82q-fef07c6bf20a.herokuapp.com/stream/969919?hash=96bc8d" class="item-card">
-        <div class="number-tag c-green">39</div><div class="topic-name">No system 01</div>
-    </a>
-    <a href="https://a-tushar-82q-fef07c6bf20a.herokuapp.com/stream/969923?hash=a430c9" class="item-card">
-        <div class="number-tag c-green">40</div><div class="topic-name">No system 02</div>
-    </a>
-    <a href="https://a-tushar-82q-fef07c6bf20a.herokuapp.com/stream/969931?hash=0db010" class="item-card">
-        <div class="number-tag c-green">41</div><div class="topic-name">No system 03</div>
-    </a>
-    <a href="https://a-tushar-82q-fef07c6bf20a.herokuapp.com/stream/969935?hash=60dc9e" class="item-card">
-        <div class="number-tag c-green">42</div><div class="topic-name">No system 04</div>
-    </a>
-    <a href="https://a-tushar-82q-fef07c6bf20a.herokuapp.com/stream/969937?hash=af838a" class="item-card">
-        <div class="number-tag c-green">43</div><div class="topic-name">No system 05</div>
-    </a>
-    <a href="https://a-tushar-82q-fef07c6bf20a.herokuapp.com/stream/969939?hash=0fb166" class="item-card">
-        <div class="number-tag c-green">44</div><div class="topic-name">No system 06</div>
-    </a>
-    <a href="https://a-tushar-82q-fef07c6bf20a.herokuapp.com/stream/969941?hash=8115a6" class="item-card">
-        <div class="number-tag c-green">45</div><div class="topic-name">No system 07</div>
-    </a>
-    <a href="https://a-tushar-82q-fef07c6bf20a.herokuapp.com/stream/969943?hash=841599" class="item-card">
-        <div class="number-tag c-green">46</div><div class="topic-name">No system 08</div>
-    </a>
-    <a href="https://a-tushar-82q-fef07c6bf20a.herokuapp.com/stream/969945?hash=ae1dea" class="item-card">
-        <div class="number-tag c-green">47</div><div class="topic-name">No system 09</div>
-    </a>
+        function showSubjects() {
+            // Show subjects list
+            document.getElementById('subjectsList').style.display = 'block';
+            
+            // Hide all chapter lists
+            const allChapterLists = document.querySelectorAll('.chapter-list');
+            allChapterLists.forEach(list => {
+                list.classList.remove('active');
+            });
+        }
 
-    <a href="https://a-tushar-82q-fef07c6bf20a.herokuapp.com/stream/969949?hash=5e9ca0" class="item-card">
-        <div class="number-tag c-orange">48</div><div class="topic-name">Trigonometry 01</div>
-    </a>
-    <a href="https://a-tushar-82q-fef07c6bf20a.herokuapp.com/stream/969953?hash=0e7ac5" class="item-card">
-        <div class="number-tag c-orange">49</div><div class="topic-name">Trigonometry 02</div>
-    </a>
-    <a href="https://a-tushar-82q-fef07c6bf20a.herokuapp.com/stream/969957?hash=fd3f38" class="item-card">
-        <div class="number-tag c-orange">50</div><div class="topic-name">Trigonometry 03</div>
-    </a>
-    <a href="https://a-tushar-82q-fef07c6bf20a.herokuapp.com/stream/969959?hash=30886e" class="item-card">
-        <div class="number-tag c-orange">51</div><div class="topic-name">Trigonometry 04</div>
-    </a>
-    <a href="https://a-tushar-82q-fef07c6bf20a.herokuapp.com/stream/969961?hash=95df91" class="item-card">
-        <div class="number-tag c-orange">52</div><div class="topic-name">Trigonometry 05</div>
-    </a>
-    <a href="https://a-tushar-82q-fef07c6bf20a.herokuapp.com/stream/969963?hash=c8448b" class="item-card">
-        <div class="number-tag c-orange">53</div><div class="topic-name">Trigonometry 06</div>
-    </a>
-    <a href="https://a-tushar-82q-fef07c6bf20a.herokuapp.com/stream/969965?hash=318275" class="item-card">
-        <div class="number-tag c-orange">54</div><div class="topic-name">Trigonometry 07</div>
-    </a>
-    <a href="https://a-tushar-82q-fef07c6bf20a.herokuapp.com/stream/969967?hash=b7dbaf" class="item-card">
-        <div class="number-tag c-orange">55</div><div class="topic-name">Height & Distance</div>
-    </a>
-
-    <a href="https://a-tushar-82q-fef07c6bf20a.herokuapp.com/stream/969971?hash=222e40" class="item-card">
-        <div class="number-tag c-red">56</div><div class="topic-name">Time, Speed & Distance 01</div>
-    </a>
-    <a href="https://a-tushar-82q-fef07c6bf20a.herokuapp.com/stream/969973?hash=ea5115" class="item-card">
-        <div class="number-tag c-red">57</div><div class="topic-name">Time, Speed & Distance 02</div>
-    </a>
-    <a href="https://a-tushar-82q-fef07c6bf20a.herokuapp.com/stream/969975?hash=c0c03a" class="item-card">
-        <div class="number-tag c-red">58</div><div class="topic-name">Time, Speed & Distance 03</div>
-    </a>
-    <a href="https://a-tushar-82q-fef07c6bf20a.herokuapp.com/stream/969977?hash=b4ccad" class="item-card">
-        <div class="number-tag c-red">59</div><div class="topic-name">Time, Speed & Distance 04</div>
-    </a>
-    <a href="https://a-tushar-82q-fef07c6bf20a.herokuapp.com/stream/969979?hash=66224e" class="item-card">
-        <div class="number-tag c-red">60</div><div class="topic-name">Time, Speed & Distance 05</div>
-    </a>
-
-    <a href="https://a-tushar-82q-fef07c6bf20a.herokuapp.com/stream/969981?hash=250ca3" class="item-card">
-        <div class="number-tag">61</div><div class="topic-name">Ratio 01</div>
-    </a>
-    <a href="https://a-tushar-82q-fef07c6bf20a.herokuapp.com/stream/969983?hash=09e0bc" class="item-card">
-        <div class="number-tag">62</div><div class="topic-name">Ratio 02</div>
-    </a>
-    <a href="https://a-tushar-82q-fef07c6bf20a.herokuapp.com/stream/969985?hash=712943" class="item-card">
-        <div class="number-tag">63</div><div class="topic-name">Ratio 03</div>
-    </a>
-    <a href="https://a-tushar-82q-fef07c6bf20a.herokuapp.com/stream/969989?hash=51235e" class="item-card">
-        <div class="number-tag">64</div><div class="topic-name">Ratio 04</div>
-    </a>
-    <a href="https://a-tushar-82q-fef07c6bf20a.herokuapp.com/stream/969991?hash=b22470" class="item-card">
-        <div class="number-tag">65</div><div class="topic-name">Ratio 05</div>
-    </a>
-    <a href="https://a-tushar-82q-fef07c6bf20a.herokuapp.com/stream/969998?hash=b2bb38" class="item-card">
-        <div class="number-tag c-purple">66</div><div class="topic-name">Partnership</div>
-    </a>
-    <a href="https://a-tushar-82q-fef07c6bf20a.herokuapp.com/stream/970001?hash=84e988" class="item-card">
-        <div class="number-tag c-purple">67</div><div class="topic-name">HCF & LCM</div>
-    </a>
-    <a href="https://a-tushar-82q-fef07c6bf20a.herokuapp.com/stream/970003?hash=cc7cac" class="item-card">
-        <div class="number-tag c-green">68</div><div class="topic-name">Simplification 01</div>
-    </a>
-    <a href="https://a-tushar-82q-fef07c6bf20a.herokuapp.com/stream/970005?hash=d97337" class="item-card">
-        <div class="number-tag c-green">69</div><div class="topic-name">Simplification 02</div>
-    </a>
-    <a href="https://a-tushar-82q-fef07c6bf20a.herokuapp.com/stream/970009?hash=163512" class="item-card">
-        <div class="number-tag c-orange">70</div><div class="topic-name">Surd & Indices 01</div>
-    </a>
-    <a href="https://a-tushar-82q-fef07c6bf20a.herokuapp.com/stream/970019?hash=405dd2" class="item-card">
-        <div class="number-tag c-orange">71</div><div class="topic-name">Surd & Indices 02</div>
-    </a>
-    <a href="https://a-tushar-82q-fef07c6bf20a.herokuapp.com/stream/970021?hash=40e8bf" class="item-card">
-        <div class="number-tag c-orange">72</div><div class="topic-name">Surd & Indices 03</div>
-    </a>
-    <a href="https://a-tushar-82q-fef07c6bf20a.herokuapp.com/stream/970023?hash=018bfb" class="item-card">
-        <div class="number-tag c-red">73</div><div class="topic-name">Race & Circular Motion</div>
-    </a>
-    <a href="https://a-tushar-82q-fef07c6bf20a.herokuapp.com/stream/970027?hash=0644f0" class="item-card">
-        <div class="number-tag c-red">74</div><div class="topic-name">Boat & Stream</div>
-    </a>
-</div>
-
+        // Initialize
+        loadSubjects();
+    </script>
 </body>
 </html>
